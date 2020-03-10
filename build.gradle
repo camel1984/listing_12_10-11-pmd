@@ -1,0 +1,31 @@
+allprojects {
+    group = 'com.manning.gia'
+    version = '0.1'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    apply plugin: 'pmd'
+
+    pmd {
+        ignoreFailures = true
+        sourceSets = sourceSets.findAll{it.name == 'main'}
+    }
+
+    tasks.withType(Pmd) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+    repositories {
+        maven {
+            url "https://repo1.maven.org/maven2/"
+        }
+
+        maven {
+            url "https://repo.spring.io/plugins-release/"
+        }
+    }
+}
